@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ===== SEO ===== -->
+  <title>Kamiguchi Odontologia — Dentista em Taubaté | Aparelho Invisível | Square Offices &amp; Mall</title>
+  <meta name="description" content="Clínica odontológica em Taubaté com aparelho invisível (alinhadores transparentes), equipe multidisciplinar e atendimento humanizado até as 20h. Implantes, ortodontia, estética dental e mais, no Square Offices & Mall. Avaliação 5,0 no Google. Agende pelo WhatsApp (12) 99755-2370.">
+  <meta name="keywords" content="odontologia Taubaté, dentista Taubaté, aparelho invisível Taubaté, alinhador transparente, clínica odontológica, implante dentário, ortodontia, estética dental, Square Offices">
+  <meta property="og:title" content="Kamiguchi Odontologia — Onde o seu sorriso encontra o cuidado que ele merece">
+  <meta property="og:description" content="Aparelho invisível, equipe multidisciplinar, atendimento humanizado e nota máxima no Google. Square Offices & Mall, Taubaté — SP.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <!-- ⚠️ DEMO: URLs apontam pro GitHub Pages. Quando a clínica tiver domínio próprio,
+       trocar as 3 URLs abaixo e REMOVER a meta robots noindex. -->
+  <meta name="robots" content="noindex">
+  <meta property="og:url" content="https://jpfamelli.github.io/kamiguchi-site/">
+  <meta property="og:image" content="https://jpfamelli.github.io/kamiguchi-site/img/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="canonical" href="https://jpfamelli.github.io/kamiguchi-site/">
+  <meta name="theme-color" content="#0B2E33">
+
+  <!-- Dados estruturados (Dentist + FAQ) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dentist",
+    "name": "Kamiguchi Odontologia",
+    "telephone": "+55 12 99755-2370",
+    "founder": { "@type": "Person", "name": "Dra. Rafaella Kamiguchi", "jobTitle": "Cirurgiã-dentista" },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Charles Schneider, 1236 — Sl 402, Ed. Square Offices & Mall",
+      "addressLocality": "Taubaté",
+      "addressRegion": "SP",
+      "postalCode": "12040-000",
+      "addressCountry": "BR"
+    },
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "4" }
+  }
+  </script>
+
+  <!-- Tipografia: Syne (display) · Instrument Serif itálico (acento) · Hanken Grotesk (corpo) · DM Mono (labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Serif:ital@1&family=Hanken+Grotesk:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230B2E33'/><text x='50' y='68' font-size='56' font-family='Georgia' font-style='italic' fill='%23C08A3E' text-anchor='middle'>K</text></svg>">
+</head>
+<body>
+
+  <a class="skip-link" href="#clinica">Pular para o conteúdo</a>
+
+  <!-- Cursor customizado (apenas pointer:fine) -->
+  <div class="cursor" aria-hidden="true">
+    <span class="cursor-dot"></span>
+    <span class="cursor-ring"></span>
+    <span class="cursor-label"></span>
+  </div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="header" id="topo">
+    <a class="brand" href="#topo">
+      <span class="brand-name">Kamiguchi</span>
+      <span class="brand-sub">odontologia · taubaté</span>
+    </a>
+
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="#clinica">A clínica</a>
+      <a href="#invisivel">Invisível</a>
+      <a href="#especialidades">Especialidades</a>
+      <a href="#pacientes">Pacientes</a>
+      <a href="#duvidas">Dúvidas</a>
+    </nav>
+
+    <div class="header-right">
+      <a class="btn btn-solid magnetic" href="#agenda">Agendar consulta</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="menu-overlay" aria-label="Abrir menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Menu mobile (overlay) -->
+  <div class="menu-overlay" id="menu-overlay" aria-hidden="true">
+    <nav aria-label="Menu">
+      <a href="#clinica"><em>01</em> A clínica</a>
+      <a href="#invisivel"><em>02</em> Aparelho invisível</a>
+      <a href="#especialidades"><em>03</em> Especialidades</a>
+      <a href="#pacientes"><em>04</em> Pacientes</a>
+      <a href="#duvidas"><em>05</em> Dúvidas</a>
+      <a href="#agenda"><em>06</em> Agendar</a>
+    </nav>
+    <p class="menu-foot">Square Offices &amp; Mall — Taubaté · (12) 99755-2370</p>
+  </div>
+
+  <!-- ===================== HERO — aurora "dança de cor" + bokeh ===================== -->
+  <section class="hero">
+    <canvas class="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-grain" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <p class="eyebrow reveal">Taubaté · Square Offices &amp; Mall <span class="dotsep"></span> <span class="star">★</span> 5,0 no Google</p>
+
+      <h1 class="hero-title" data-split>
+        Onde o seu <em>sorriso</em><br>
+        encontra o cuidado<br>
+        que ele merece.
+      </h1>
+
+      <p class="hero-sub reveal">
+        Tratamentos com <strong>aparelho invisível</strong>, equipe multidisciplinar,
+        atendimento humanizado e horário até as 20h — no Square Offices &amp; Mall.
+      </p>
+
+      <div class="hero-ctas reveal">
+        <a class="btn btn-amber magnetic" href="#agenda">Agendar minha avaliação</a>
+        <a class="btn btn-ghost magnetic" href="#invisivel">Conhecer o aparelho invisível</a>
+      </div>
+    </div>
+
+    <div class="hero-foot" aria-hidden="true">
+      <span>Av. Charles Schneider, 1236 — Sl 402</span>
+      <span class="scroll-hint">role para conhecer ↓</span>
+      <span>aberto até as 20h</span>
+    </div>
+  </section>
+
+  <!-- ===================== FAIXA DE FATOS ===================== -->
+  <section class="facts" aria-label="Diferenciais">
+    <div class="fact reveal"><strong>5,0</strong><span>avaliação máxima no Google — pacientes que recomendam</span></div>
+    <div class="fact reveal"><strong>8</strong><span>especialidades numa equipe multidisciplinar</span></div>
+    <div class="fact reveal"><strong>Square</strong><span>Offices &amp; Mall — localização privilegiada e fácil acesso</span></div>
+    <div class="fact reveal"><strong>20h</strong><span>horário estendido, para caber na sua rotina</span></div>
+  </section>
+
+  <!-- ===================== 01 · A CLÍNICA ===================== -->
+  <section class="chapter" id="clinica">
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <header class="chapter-head">
+      <span class="chapter-num">01</span>
+      <h2 class="chapter-title" data-split>Uma equipe que <em>ama</em><br>o que faz.</h2>
+    </header>
+
+    <div class="clinica-grid">
+      <div class="clinica-quote">
+        <p class="reveal">“Você sente a diferença<br>em cada sorriso.”</p>
+
+        <!-- Dra. Rafaella — FOTO PROVISÓRIA (140px, perfil público do Ident).
+             Substituir por foto profissional em alta resolução. -->
+        <figure class="dra reveal">
+          <img src="img/dra-rafaella.jpg" alt="Dra. Rafaella Kamiguchi" width="140" height="140" loading="lazy">
+          <figcaption>
+            <strong>Dra. Rafaella Kamiguchi</strong>
+            <span>Cirurgiã-dentista · CRO-SP 85783</span>
+            <span class="dra-note">À frente de uma equipe que trata cada caso como único.</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="clinica-text">
+        <p class="reveal">
+          A Kamiguchi Odontologia nasceu de uma convicção simples: ninguém deveria
+          adiar o cuidado com o próprio sorriso por medo, pressa ou desconfiança.
+          Por isso, cada consulta começa por ouvir — entender a sua história, o seu
+          receio e o resultado que você espera — antes de qualquer procedimento.
+        </p>
+        <p class="reveal">
+          Nossa missão é proporcionar saúde bucal com excelência técnica, acolhimento
+          e tecnologia, do diagnóstico ao sorriso pronto. E a visão que nos move é
+          clara: ser referência em odontologia humanizada em Taubaté e região,
+          construindo relações de confiança que duram anos, não uma consulta.
+        </p>
+        <p class="reveal">
+          No Square Offices &amp; Mall, você encontra uma estrutura moderna, estacionamento
+          fácil e uma equipe multidisciplinar que trabalha de forma integrada — o
+          especialista certo, na hora certa, com um custo-benefício que respeita você.
+        </p>
+
+        <ul class="valores" aria-label="Nossos valores">
+          <li class="reveal"><span>Profissionalismo</span> e dedicação do início ao fim</li>
+          <li class="reveal"><span>Atendimento especializado</span> para cada necessidade</li>
+          <li class="reveal"><span>Equipe multidisciplinar</span> trabalhando integrada</li>
+          <li class="reveal"><span>Custo-benefício</span> honesto e transparente</li>
+          <li class="reveal"><span>Ambiente acolhedor</span> moderno e sem pressa</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 02 · APARELHO INVISÍVEL (destaque) ===================== -->
+  <section class="chapter chapter-dark chapter-inv" id="invisivel">
+    <canvas class="inv-canvas" aria-hidden="true"></canvas>
+    <header class="chapter-head">
+      <span class="chapter-num">02</span>
+      <h2 class="chapter-title" data-split>O aparelho que ninguém<br>percebe. O sorriso que<br>todos <em>notam</em>.</h2>
+      <p class="chapter-lead reveal">
+        O <strong>aparelho invisível</strong> é o carro-chefe da clínica: alinhadores
+        transparentes, feitos sob medida, que corrigem o seu sorriso sem
+        metal, sem apertos — e sem que ninguém perceba.
+      </p>
+    </header>
+
+    <p class="inv-ghost" aria-hidden="true">invisível</p>
+
+    <ul class="inv-list">
+      <li class="reveal"><strong>Discreto de verdade</strong><span>transparente, ninguém nota que você está em tratamento</span></li>
+      <li class="reveal"><strong>Removível</strong><span>coma o que quiser e higienize os dentes normalmente</span></li>
+      <li class="reveal"><strong>Planejamento digital</strong><span>você vê a simulação do resultado antes de começar</span></li>
+      <li class="reveal"><strong>Consultas rápidas</strong><span>acompanhamento prático, que cabe na sua rotina</span></li>
+    </ul>
+
+    <div class="inv-cta reveal">
+      <a class="btn btn-amber magnetic" href="https://wa.me/5512997552370?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Kamiguchi%20Odontologia%20e%20quero%20saber%20mais%20sobre%20o%20aparelho%20invis%C3%ADvel." target="_blank" rel="noopener">Quero o aparelho invisível</a>
+      <span class="inv-cta-note">avaliação sem compromisso — resposta rápida no WhatsApp</span>
+    </div>
+  </section>
+
+  <!-- ===================== 03 · ESPECIALIDADES ===================== -->
+  <section class="chapter chapter-svc" id="especialidades">
+    <div class="glow glow-b" aria-hidden="true"></div>
+    <header class="chapter-head">
+      <span class="chapter-num">03</span>
+      <h2 class="chapter-title" data-split>Do diagnóstico<br>ao sorriso <em>pronto</em>.</h2>
+      <p class="chapter-lead reveal">
+        Oito especialidades sob o mesmo teto. Toque em cada uma para saber o que
+        ela resolve — e fale direto com a equipe sobre o seu caso.
+      </p>
+    </header>
+
+    <ul class="svc-list">
+      <li class="svc reveal">
+        <button class="svc-head" aria-expanded="false" aria-controls="svc-1" data-cursor-label="abrir">
+          <span class="svc-num">01</span>
+          <span class="svc-name">Ortodontia &amp; Invisível</span>
+          <span class="svc-tag">alinhadores e aparelhos modernos</span>
+          <span class="svc-x" aria-hidden="true"></span>
+        </button>
+        <div class="svc-body" id="svc-1">
+          <div>
+            <p>Correção do posicionamento dos dentes e da mordida — do aparelho
+            convencional ao <strong>alinhador invisível</strong>, o tratamento mais
+            procurado da clínica. Planejamento digital e acompanhamento contínuo.</p>
+            <a class="svc-cta" href="https://wa.me/5512997552370?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Kamiguchi%20Odontologia%20e%20gostaria%20de%20saber%20mais%20sobre%20Ortodontia%20e%20aparelho%20invis%C3%ADvel." target="_blank" rel="noopener">Falar sobre ortodontia →</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="svc reveal">
+        <button class="svc-head" aria-expanded="false" aria-controls="svc-2" data-cursor-label="abrir">
+          <span class="svc-num">02</span>
+          <span class="svc-name">Implantodontia</span>
+          <span class="svc-tag">implantes seguros e duradouros</span>
+          <span class="svc-x" aria-hidden="true"></span>
+        </button>
+        <div class="svc-body" id="svc-2">
+          <div>
+            <p>Recupere dentes perdidos com implantes que devolvem função e estética
+            de forma definitiva. Planejamento digital, materiais de primeira linha e
+            acompanhamento próximo em todas as fases.</p>
+            <a class="svc-cta" href="https://wa.me/5512997552370?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Kamiguchi%20Odontologia%20e%20gostaria%20de%20saber%20mais%20sobre%20Implantodontia." target="_blank" rel="noopener">Falar sobre implantes →</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="svc reveal">
+        <button class="svc-head" aria-expanded="false" aria-controls="svc-3" data-cursor-label="abrir">
+          <span class="svc-num">03</span>
+          <span class="svc-name">Estética Dental</span>
+          <span class="svc-tag">clareamento, facetas e redesign</span>
+          <span class="svc-x" aria-hidden="true"></span>
+        </button>
+        <div class="svc-body" id="svc-3">
+          <div>
+            <p>Clareamento, facetas e redesign do sorriso planejados para o seu rosto —
+            resultados naturais, que parecem seus porque foram desenhados para você.</p>
+            <a class="svc-cta" href="https://wa.me/5512997552370?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Kamiguchi%20Odontologia%20e%20gostaria%20de%20saber%20mais%20sobre%20Est%C3%A9tica%20Dental." target="_blank" rel="noopener">Falar sobre estética →</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="svc reveal">
+        <button class="svc-head" aria-expanded="false" aria-controls="svc-4" data-cursor-label="abrir">
+          <span class="svc-num">04</span>
+          <span class="svc-name">Clínica Geral</span>
+          <span class="svc-tag">prevenção e saúde bucal completa</span>
+          <span class="svc-x" aria-hidden="true"></span>
+        </button>
+        <div class="svc-body" id="svc-4">
+          <div>
+            <p>Limpeza, prevenção, restaurações e check-ups regulares. É o cuidado de
+            base que evita problemas maiores — e mantém o seu sorriso saudável o ano todo.</p>
+            <a class="svc-cta" href="https://wa.me/5512997552370?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Kamiguchi%20Odontologia%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20de%20Cl%C3%ADnica%20Geral." target="_blank" rel="noopener">Agendar avaliação →</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="svc reveal">
+        <button class="svc-head" aria-expanded="false" aria-controls="svc-5" data-cursor-label="abrir">
+          <span class="svc-num">05</span>
+          <span class="svc-name">Endodontia</span>
+          <span class="svc-tag">canal com conforto e precisão</span>
+          <span class="svc-x" aria-hidden="true"></span>
+        </button>
+        <div class="svc-body" id="svc-5">
+          <div>
+            <p>Tratamento de canal com técnica precisa e anestesia confortável — para
+            salvar o dente natural e acabar com a dor, sem sofrimento no processo.</p>
+            <a class="svc-cta" href="https://wa.me/5512997552370?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Kamiguchi%20Odontologia%20e%20gostaria%20de%20saber%20mais%20sobre%20Endodontia%20(canal)." target="_blank" rel="noopener">Falar sobre canal →</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="svc reveal">
+        <button class="svc-head" aria-expanded="false" aria-controls="svc-6" data-cursor-label="abrir">
+          <span class="svc-num">06</span>
+          <span class="svc-name">Odontopediatria</span>
+          <span class="svc-tag">cuidado para os pequenos sorrisos</span>
+          <span class="svc-x" aria-hidden="true"></span>
+        </button>
+        <div class="svc-body" id="svc-6">
+          <div>
+            <p>Atendimento pensado para crianças: paciência, linguagem leve e um
+            ambiente que transforma a ida ao dentista em hábito tranquilo — desde
+            o primeiro dentinho.</p>
+            <a class="svc-cta" href="https://wa.me/5512997552370?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Kamiguchi%20Odontologia%20e%20gostaria%20de%20saber%20mais%20sobre%20Odontopediatria." target="_blank" rel="noopener">Falar sobre odontopediatria →</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="svc reveal">
+        <button class="svc-head" aria-expanded="false" aria-controls="svc-7" data-cursor-label="abrir">
+          <span class="svc-num">07</span>
+          <span class="svc-name">Periodontia</span>
+          <span class="svc-tag">saúde das gengivas</span>
+          <span class="svc-x" aria-hidden="true"></span>
+        </button>
+        <div class="svc-body" id="svc-7">
+          <div>
+            <p>Prevenção e tratamento de gengivite e doenças periodontais — gengivas
+            saudáveis são a fundação de qualquer sorriso bonito e duradouro.</p>
+            <a class="svc-cta" href="https://wa.me/5512997552370?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Kamiguchi%20Odontologia%20e%20gostaria%20de%20saber%20mais%20sobre%20Periodontia." target="_blank" rel="noopener">Falar sobre gengivas →</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="svc reveal">
+        <button class="svc-head" aria-expanded="false" aria-controls="svc-8" data-cursor-label="abrir">
+          <span class="svc-num">08</span>
+          <span class="svc-name">Próteses</span>
+          <span class="svc-tag">reabilitação fixa e removível</span>
+          <span class="svc-x" aria-hidden="true"></span>
+        </button>
+        <div class="svc-body" id="svc-8">
+          <div>
+            <p>Próteses fixas e removíveis para devolver mastigação, fala e confiança —
+            reabilitação completa com ajuste fino e aparência natural.</p>
+            <a class="svc-cta" href="https://wa.me/5512997552370?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Kamiguchi%20Odontologia%20e%20gostaria%20de%20saber%20mais%20sobre%20Pr%C3%B3teses." target="_blank" rel="noopener">Falar sobre próteses →</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <p class="svc-note reveal">A disponibilidade de cada especialidade pode variar — confirme o seu caso pelo WhatsApp.</p>
+  </section>
+
+  <!-- ===================== 04 · PACIENTES (carrossel interativo) ===================== -->
+  <section class="chapter chapter-dark" id="pacientes">
+    <div class="glow glow-c" aria-hidden="true"></div>
+    <header class="chapter-head">
+      <span class="chapter-num">04</span>
+      <h2 class="chapter-title" data-split>Nota máxima —<br>e não <em>por acaso</em>.</h2>
+      <p class="rating-line reveal"><span class="stars">★★★★★</span> 5,0 de 5,0 · avaliações no Google</p>
+    </header>
+
+    <!-- Carrossel: arraste, setas, bolinhas e autoplay.
+         ⚠️ ANTES DE PUBLICAR: substituir os textos abaixo pelas avaliações REAIS
+         do perfil do Google da clínica (copiar verbatim + primeiro nome). Só então
+         o rótulo pode voltar a ser "avaliação no Google". -->
+    <div class="car reveal" data-cursor-label="arraste">
+      <div class="car-viewport">
+        <div class="car-track">
+          <blockquote class="car-slide">
+            <p>“Atendimento excelente! Uma equipe que realmente ama o que faz. Recomendo demais.”</p>
+            <footer><span class="q-avatar" aria-hidden="true">M</span> Mariana · paciente</footer>
+          </blockquote>
+          <blockquote class="car-slide">
+            <p>“Profissionalismo e dedicação do início ao fim. Minha família inteira vai na Kamiguchi.”</p>
+            <footer><span class="q-avatar" aria-hidden="true">R</span> Ricardo · paciente</footer>
+          </blockquote>
+          <blockquote class="car-slide">
+            <p>“Custo-benefício impecável e localização linda no Square Offices. Super recomendo!”</p>
+            <footer><span class="q-avatar" aria-hidden="true">C</span> Camila · paciente</footer>
+          </blockquote>
+          <blockquote class="car-slide">
+            <p>“Atendimento especializado de uma equipe multidisciplinar. Me senti acolhida em toda visita.”</p>
+            <footer><span class="q-avatar" aria-hidden="true">L</span> Luciana · paciente</footer>
+          </blockquote>
+        </div>
+      </div>
+      <div class="car-ui">
+        <button class="car-btn car-prev" aria-label="Avaliação anterior">←</button>
+        <div class="car-dots" role="tablist" aria-label="Avaliações"></div>
+        <button class="car-btn car-next" aria-label="Próxima avaliação">→</button>
+      </div>
+    </div>
+
+    <a class="btn btn-ghost-light magnetic reveal" href="https://www.google.com/maps/search/?api=1&query=Kamiguchi+Odontologia+Taubat%C3%A9" target="_blank" rel="noopener">
+      Ver as avaliações no Google
+    </a>
+  </section>
+
+  <!-- ===================== 05 · PERGUNTAS FREQUENTES ===================== -->
+  <section class="chapter" id="duvidas">
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <header class="chapter-head">
+      <span class="chapter-num">05</span>
+      <h2 class="chapter-title" data-split>Perguntas que<br>ouvimos <em>sempre</em>.</h2>
+    </header>
+
+    <ul class="faq-list">
+      <li class="faq reveal">
+        <button class="faq-head" aria-expanded="false" aria-controls="faq-1" data-cursor-label="abrir">
+          <span>Como funciona a primeira consulta?</span><span class="svc-x" aria-hidden="true"></span>
+        </button>
+        <div class="faq-body" id="faq-1"><div>
+          <p>É uma avaliação completa e sem pressa: ouvimos a sua história, examinamos
+          o seu caso e montamos um plano de tratamento transparente, com tudo explicado
+          antes de qualquer procedimento. Agende pelo WhatsApp — leva menos de um minuto.</p>
+        </div></div>
+      </li>
+      <li class="faq reveal">
+        <button class="faq-head" aria-expanded="false" aria-controls="faq-2" data-cursor-label="abrir">
+          <span>O aparelho invisível funciona mesmo?</span><span class="svc-x" aria-hidden="true"></span>
+        </button>
+        <div class="faq-body" id="faq-2"><div>
+          <p>Sim — os alinhadores transparentes corrigem a grande maioria dos casos de
+          alinhamento e mordida. Na avaliação, fazemos o planejamento digital e você vê
+          a simulação do resultado antes de decidir. É o tratamento carro-chefe da clínica.</p>
+        </div></div>
+      </li>
+      <li class="faq reveal">
+        <button class="faq-head" aria-expanded="false" aria-controls="faq-3" data-cursor-label="abrir">
+          <span>Quanto custa o tratamento?</span><span class="svc-x" aria-hidden="true"></span>
+        </button>
+        <div class="faq-body" id="faq-3"><div>
+          <p>Depende do seu caso — por isso a avaliação vem primeiro. Depois dela, você
+          recebe um orçamento claro, sem surpresa, com um custo-benefício que os nossos
+          pacientes elogiam nas avaliações. Consulte as condições de pagamento pelo WhatsApp.</p>
+        </div></div>
+      </li>
+      <li class="faq reveal">
+        <button class="faq-head" aria-expanded="false" aria-controls="faq-4" data-cursor-label="abrir">
+          <span>Tenho medo de dentista. E agora?</span><span class="svc-x" aria-hidden="true"></span>
+        </button>
+        <div class="faq-body" id="faq-4"><div>
+          <p>Você não está sozinho — e é exatamente para isso que existimos. Atendimento
+          sem pressa, anestesia confortável e uma equipe que explica cada passo. Muitos
+          pacientes chegam com medo e saem indicando a clínica para a família.</p>
+        </div></div>
+      </li>
+      <li class="faq reveal">
+        <button class="faq-head" aria-expanded="false" aria-controls="faq-5" data-cursor-label="abrir">
+          <span>Vocês atendem crianças?</span><span class="svc-x" aria-hidden="true"></span>
+        </button>
+        <div class="faq-body" id="faq-5"><div>
+          <p>Sim! A odontopediatria é uma das nossas especialidades: linguagem leve,
+          paciência e um ambiente que transforma a ida ao dentista em hábito tranquilo,
+          desde o primeiro dentinho.</p>
+        </div></div>
+      </li>
+      <li class="faq reveal">
+        <button class="faq-head" aria-expanded="false" aria-controls="faq-6" data-cursor-label="abrir">
+          <span>Onde estaciono? Até que horas atendem?</span><span class="svc-x" aria-hidden="true"></span>
+        </button>
+        <div class="faq-body" id="faq-6"><div>
+          <p>A clínica fica no Ed. Square Offices &amp; Mall (Av. Charles Schneider, 1236 —
+          sala 402), com estacionamento no próprio edifício. Atendemos até as 20h —
+          confirme o seu horário pelo WhatsApp.</p>
+        </div></div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===================== 06 · AGENDA (wizard em 3 passos) ===================== -->
+  <section class="chapter chapter-agenda" id="agenda">
+    <div class="glow glow-b" aria-hidden="true"></div>
+    <header class="chapter-head">
+      <span class="chapter-num">06</span>
+      <h2 class="chapter-title" data-split>Agende em<br><em>três passos</em>.</h2>
+      <p class="chapter-lead reveal">
+        Responda três perguntas e a mensagem chega pronta no nosso WhatsApp — respondemos rápido.
+      </p>
+    </header>
+
+    <div class="agenda-grid">
+      <!-- Wizard → WhatsApp -->
+      <form class="wizard reveal" id="wizard" novalidate>
+        <div class="wiz-progress" aria-hidden="true">
+          <span class="wiz-step-label" data-step-label="1">01 · serviço</span>
+          <span class="wiz-step-label" data-step-label="2">02 · seus dados</span>
+          <span class="wiz-step-label" data-step-label="3">03 · horário</span>
+          <i class="wiz-bar"><i class="wiz-bar-fill"></i></i>
+        </div>
+
+        <!-- Passo 1: serviço -->
+        <fieldset class="wiz-step" data-step="1">
+          <legend>O que você precisa?</legend>
+          <div class="chips" role="radiogroup" aria-label="Serviço de interesse">
+            <button type="button" class="chip is-on" data-value="Avaliação geral">Avaliação geral</button>
+            <button type="button" class="chip" data-value="Aparelho invisível">Aparelho invisível</button>
+            <button type="button" class="chip" data-value="Implantes">Implantes</button>
+            <button type="button" class="chip" data-value="Estética / clareamento">Estética / clareamento</button>
+            <button type="button" class="chip" data-value="Ortodontia">Ortodontia</button>
+            <button type="button" class="chip" data-value="Limpeza / prevenção">Limpeza / prevenção</button>
+            <button type="button" class="chip" data-value="Canal">Canal</button>
+            <button type="button" class="chip" data-value="Atendimento infantil">Atendimento infantil</button>
+            <button type="button" class="chip" data-value="Outro assunto">Outro assunto</button>
+          </div>
+        </fieldset>
+
+        <!-- Passo 2: dados -->
+        <fieldset class="wiz-step" data-step="2" hidden>
+          <legend>Quem é você?</legend>
+          <div class="field">
+            <label for="w-nome">Nome</label>
+            <input id="w-nome" name="nome" type="text" autocomplete="name" placeholder="Como podemos te chamar?">
+          </div>
+          <div class="field">
+            <label for="w-tel">Telefone / WhatsApp</label>
+            <input id="w-tel" name="telefone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(12) 9 0000-0000">
+          </div>
+        </fieldset>
+
+        <!-- Passo 3: horário + mensagem -->
+        <fieldset class="wiz-step" data-step="3" hidden>
+          <legend>Qual período prefere?</legend>
+          <div class="chips" role="radiogroup" aria-label="Período preferido">
+            <button type="button" class="chip is-on" data-value="Qualquer horário">Tanto faz</button>
+            <button type="button" class="chip" data-value="Manhã">Manhã</button>
+            <button type="button" class="chip" data-value="Tarde">Tarde</button>
+            <button type="button" class="chip" data-value="Fim do dia (após 18h)">Fim do dia</button>
+          </div>
+          <div class="field">
+            <label for="w-msg">Mensagem <em>(opcional)</em></label>
+            <textarea id="w-msg" name="mensagem" rows="3" placeholder="Conte rapidamente o que você precisa"></textarea>
+          </div>
+        </fieldset>
+
+        <p class="form-error" id="wiz-error" hidden>Preencha nome e telefone para continuar.</p>
+
+        <div class="wiz-nav">
+          <button type="button" class="btn btn-ghost-dark wiz-back" hidden>← Voltar</button>
+          <button type="button" class="btn btn-amber magnetic wiz-next">Continuar →</button>
+          <button type="submit" class="btn btn-amber magnetic wiz-send" hidden>Enviar pelo WhatsApp</button>
+        </div>
+      </form>
+
+      <aside class="info reveal">
+        <div class="info-block">
+          <h3>Endereço</h3>
+          <p>Ed. Square Offices &amp; Mall<br>Av. Charles Schneider, 1236 — Sl 402<br>Parque S. do Bonfim, Taubaté — SP<br>CEP 12040-000</p>
+          <a class="info-link" href="https://www.google.com/maps/dir/?api=1&destination=Av.+Charles+Schneider,+1236,+Taubat%C3%A9+-+SP" target="_blank" rel="noopener">Como chegar →</a>
+        </div>
+        <div class="info-block">
+          <h3>Horário</h3>
+          <p>Atendimento até as 20h —<br>confirme o seu horário pelo WhatsApp.</p>
+        </div>
+        <div class="info-block">
+          <h3>WhatsApp</h3>
+          <p class="info-phone"><a href="https://wa.me/5512997552370" target="_blank" rel="noopener">(12) 99755-2370</a></p>
+          <a class="info-link" href="https://wa.me/5512997552370?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Kamiguchi%20Odontologia%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener">Chamar agora →</a>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Mapa do Google incorporado -->
+    <div class="map reveal">
+      <iframe
+        title="Mapa — Kamiguchi Odontologia, Av. Charles Schneider 1236, Taubaté"
+        src="https://www.google.com/maps?q=Av.+Charles+Schneider,+1236,+Taubat%C3%A9+-+SP,+12040-000&output=embed"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <!-- ===================== INSTAGRAM ===================== -->
+  <!-- CONFIRMAR com a clínica o handle real do Instagram antes de publicar -->
+  <section class="insta" id="instagram" aria-label="Instagram">
+    <p class="insta-eyebrow reveal">acompanhe o dia a dia da clínica</p>
+    <a class="insta-link magnetic reveal" href="https://www.instagram.com/kamiguchiodontologia" target="_blank" rel="noopener">
+      @kamiguchi<em>odontologia</em>
+    </a>
+  </section>
+
+  <!-- ===================== RODAPÉ ===================== -->
+  <footer class="footer">
+    <p class="footer-mark">Kamiguchi<span>odontologia</span></p>
+    <div class="footer-cols">
+      <div>
+        <h4>Endereço</h4>
+        <p>Ed. Square Offices &amp; Mall — Av. Charles Schneider, 1236 — Sl 402<br>Parque S. do Bonfim, Taubaté — SP, 12040-000</p>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Av.+Charles+Schneider,+1236,+Taubat%C3%A9+-+SP" target="_blank" rel="noopener">Abrir no Google Maps →</a>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <p><a href="https://wa.me/5512997552370" target="_blank" rel="noopener">WhatsApp (12) 99755-2370</a></p>
+        <p><a href="https://www.instagram.com/kamiguchiodontologia" target="_blank" rel="noopener">Instagram</a></p>
+        <p>Atendimento até as 20h</p>
+      </div>
+      <div>
+        <h4>Responsável técnica</h4>
+        <p>Dra. Rafaella Kamiguchi<br>Cirurgiã-dentista · CRO-SP 85783</p>
+      </div>
+      <div>
+        <h4>Navegue</h4>
+        <p><a href="#clinica">A clínica</a> · <a href="#invisivel">Invisível</a> · <a href="#especialidades">Especialidades</a><br><a href="#pacientes">Pacientes</a> · <a href="#duvidas">Dúvidas</a> · <a href="#agenda">Agendar</a></p>
+      </div>
+    </div>
+    <p class="footer-legal">© 2026 Kamiguchi Odontologia · Taubaté — SP</p>
+  </footer>
+
+  <!-- WhatsApp flutuante -->
+  <a class="wa-float" href="https://wa.me/5512997552370?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Kamiguchi%20Odontologia%20e%20gostaria%20de%20agendar%20uma%20consulta."
+     target="_blank" rel="noopener" aria-label="Conversar no WhatsApp — (12) 99755-2370">
+    <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true" fill="currentColor">
+      <path d="M16 3C9.4 3 4 8.3 4 14.9c0 2.6.8 5 2.3 7L4 29l7.3-2.2c1.5.8 3.1 1.2 4.7 1.2 6.6 0 12-5.3 12-11.9S22.6 3 16 3zm0 21.8c-1.5 0-3-.4-4.3-1.1l-.5-.3-4.3 1.3 1.3-4.1-.3-.5c-1.3-1.6-2-3.6-2-5.6 0-5.4 4.5-9.8 10-9.8s10 4.4 10 9.8-4.4 10.3-9.9 10.3zm5.5-7.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2-.8 1-.9 1.2-.3.2-.6.1c-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1s0-.5.1-.6l.5-.5c.2-.2.2-.3.3-.5s0-.4 0-.6c0-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.2 3.1 1.3 3.3c.2.2 2.3 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.2 1.5.2 2.1.1.6-.1 1.8-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.5-.3z"/>
+    </svg>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
