@@ -32,6 +32,7 @@
 
   --pad: clamp(1.25rem, 5vw, 5rem);
   --ease: cubic-bezier(.22, .8, .24, 1);
+  --r-card: 16px;    /* cantos suaves de cards/painéis */
 }
 
 /* ---------- reset ---------- */
@@ -99,7 +100,8 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
 
 /* ---------- botões ---------- */
 .btn {
-  display: inline-block; padding: .95rem 1.9rem; position: relative; overflow: hidden;
+  display: inline-block; padding: .95rem 2rem; position: relative; overflow: hidden;
+  border-radius: 999px;                       /* pílula */
   font-family: var(--font-mono); font-size: .82rem; letter-spacing: .08em;
   text-transform: uppercase; border: 1px solid transparent;
   transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
@@ -291,9 +293,9 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
 /* Dra. Rafaella — foto provisória 140px; trocar por foto profissional */
 .dra {
   margin-top: 2.4rem; display: flex; gap: 1.3rem; align-items: center;
-  border: 1px solid var(--line); padding: 1.3rem;
+  border: 1px solid var(--line); border-radius: var(--r-card); padding: 1.3rem;
 }
-.dra img { width: 92px; height: 92px; object-fit: cover; filter: saturate(.85) contrast(1.02); }
+.dra img { width: 92px; height: 92px; object-fit: cover; border-radius: 12px; filter: saturate(.85) contrast(1.02); }
 .dra figcaption { display: flex; flex-direction: column; gap: .25rem; }
 .dra strong { font-family: var(--font-display); font-weight: 700; font-size: 1.02rem; color: var(--ink); }
 .dra span { font-family: var(--font-mono); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--text-soft); }
@@ -395,7 +397,7 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
 
 .car { max-width: 900px; margin-bottom: 3rem; }
 .car-viewport {
-  overflow: hidden; border: 1px solid var(--line-light); touch-action: pan-y;
+  overflow: hidden; border: 1px solid var(--line-light); border-radius: var(--r-card); touch-action: pan-y;
   user-select: none; -webkit-user-select: none;   /* arraste não pode pintar seleção de texto */
 }
 .car-track { display: flex; will-change: transform; }
@@ -413,13 +415,13 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
   display: flex; align-items: center; gap: .9rem;
 }
 .q-avatar {
-  width: 34px; height: 34px; border: 1px solid var(--amber);
+  width: 34px; height: 34px; border: 1px solid var(--amber); border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center;
   color: var(--amber-hi); font-size: .8rem; flex: none;
 }
 .car-ui { display: flex; align-items: center; gap: 1.4rem; margin-top: 1.4rem; }
 .car-btn {
-  width: 44px; height: 44px; border: 1px solid var(--line-light);
+  width: 44px; height: 44px; border: 1px solid var(--line-light); border-radius: 50%;
   font-family: var(--font-mono); color: var(--paper-text-on-dark);
   transition: border-color .3s, color .3s;
 }
@@ -445,11 +447,11 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
 .chapter-agenda { background: var(--paper); }
 .agenda-grid { display: grid; grid-template-columns: minmax(0,7fr) minmax(0,5fr); gap: clamp(2.5rem,6vw,6rem); align-items: start; margin-bottom: 4rem; }
 
-.wizard { border: 1px solid var(--line); padding: clamp(1.4rem, 3vw, 2.4rem); }
+.wizard { border: 1px solid var(--line); border-radius: var(--r-card); padding: clamp(1.4rem, 3vw, 2.4rem); }
 .wiz-progress { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; margin-bottom: 2rem; }
 .wiz-step-label { font-family: var(--font-mono); font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--text-soft); transition: color .3s; }
 .wiz-step-label.is-on { color: var(--amber-ink); }
-.wiz-bar { grid-column: 1 / -1; display: block; height: 2px; background: var(--line); position: relative; }
+.wiz-bar { grid-column: 1 / -1; display: block; height: 3px; border-radius: 3px; background: var(--line); position: relative; overflow: hidden; }
 .wiz-bar-fill { position: absolute; inset: 0 auto 0 0; width: 33.3%; background: var(--amber); transition: width .5s var(--ease); }
 
 .wiz-step legend {
@@ -458,7 +460,7 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
 }
 .chips { display: flex; flex-wrap: wrap; gap: .6rem; }
 .chip {
-  border: 1px solid var(--line); padding: .62rem 1.05rem;
+  border: 1px solid var(--line); padding: .62rem 1.15rem; border-radius: 999px;
   font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
   color: var(--text-soft); transition: background .25s, color .25s, border-color .25s, transform .25s var(--ease);
 }
@@ -497,7 +499,7 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
 .info-phone a { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: var(--ink); transition: color .3s; }
 .info-phone a:hover { color: var(--petrol); }
 
-.map { border: 1px solid var(--line); }
+.map { border: 1px solid var(--line); border-radius: var(--r-card); overflow: hidden; }
 .map iframe { width: 100%; height: clamp(300px, 45vw, 460px); border: 0; filter: grayscale(1) sepia(.14) contrast(1.02); }
 
 /* ---------- instagram ---------- */
@@ -563,7 +565,7 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
 /* ---------- varredura de cor no hover das especialidades ---------- */
 .svc-head { position: relative; }
 .svc-head::before {
-  content: ""; position: absolute; inset: 0 calc(-1 * var(--pad));
+  content: ""; position: absolute; inset: 0 calc(-1 * var(--pad)); border-radius: 14px;
   background: linear-gradient(90deg, rgba(20, 92, 102, .07), rgba(20, 92, 102, 0) 70%);
   transform: scaleX(0); transform-origin: left;
   transition: transform .5s var(--ease); pointer-events: none;

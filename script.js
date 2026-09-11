@@ -42,10 +42,10 @@
         opts.bokeh adiciona a camada de luzes desfocadas por cima.
      ============================================================ */
   const PALETTE = [
-    { h: 188, s: 48, l: 46 },  // petróleo
-    { h: 162, s: 34, l: 52 },  // menta
-    { h: 38,  s: 72, l: 55 },  // âmbar
-    { h: 14,  s: 52, l: 52 },  // coral
+    { h: 188, s: 60, l: 50 },  // petróleo
+    { h: 162, s: 46, l: 56 },  // menta
+    { h: 38,  s: 84, l: 58 },  // âmbar
+    { h: 14,  s: 66, l: 56 },  // coral
   ];
   function paletteColor(u) { // u contínuo → cor interpolada da paleta (com wrap)
     const n = PALETTE.length;
@@ -83,12 +83,12 @@
       if (this.opts.sparks && finePointer && !reduceMotion) {
         canvas.parentElement.addEventListener("pointermove", (e) => {
           const r = canvas.getBoundingClientRect();
-          for (let k = 0; k < 2; k++) {
-            if (this.sparks.length > 110) this.sparks.shift();
+          for (let k = 0; k < 4; k++) {
+            if (this.sparks.length > 220) this.sparks.shift();
             this.sparks.push({
-              x: e.clientX - r.left + rand(-6, 6), y: e.clientY - r.top + rand(-6, 6),
-              vx: rand(-.5, .5), vy: rand(-1.4, -.3),
-              r: rand(1.2, 3.4), life: 1, hue: rand(32, 54),
+              x: e.clientX - r.left + rand(-10, 10), y: e.clientY - r.top + rand(-10, 10),
+              vx: rand(-.7, .7), vy: rand(-1.8, -.4),
+              r: rand(1.4, 4.2), life: 1, hue: rand(32, 54),
             });
           }
         });
@@ -115,13 +115,13 @@
           r: rand(.28, .55) * Math.max(W, H),
           depth: rand(.3, 1),
           hueU: rand(0, PALETTE.length),      // posição na paleta
-          hueSpeed: rand(.012, .03),          // velocidade da dança de cor
-          alpha: rand(.10, .2),
+          hueSpeed: rand(.022, .05),          // velocidade da dança de cor
+          alpha: rand(.14, .26),
         });
       }
       this.lights = [];
       if (this.opts.bokeh) {
-        const n = Math.round(Math.min(22, Math.max(10, W / 70)));
+        const n = Math.round(Math.min(30, Math.max(14, W / 55)));
         for (let i = 0; i < n; i++) {
           const warm = Math.random() < 0.7;
           this.lights.push({
@@ -130,7 +130,7 @@
             depth: rand(.25, 1),
             hue: warm ? rand(30, 48) : rand(160, 185),
             sat: warm ? rand(55, 80) : rand(22, 38),
-            alpha: rand(.05, .14),
+            alpha: rand(.07, .17),
             vx: rand(-.07, .07), vy: rand(-.05, .05),
             phase: rand(0, Math.PI * 2),
           });
@@ -158,9 +158,9 @@
       // aurora: blobs que dançam de cor e de lugar
       for (const b of this.blobs) {
         const x = W * (.5 + .44 * Math.sin(t * b.sx + b.px) * Math.cos(t * b.sy * .7 + b.py))
-                + (this.mx - .5) * 150 * b.depth + shX * b.depth;
+                + (this.mx - .5) * 190 * b.depth + shX * b.depth;
         const y = H * (.5 + .42 * Math.cos(t * b.sy + b.py) * Math.sin(t * b.sx * .6 + b.px))
-                + (this.my - .5) * 110 * b.depth + shY * b.depth;
+                + (this.my - .5) * 140 * b.depth + shY * b.depth;
         const c = paletteColor(b.hueU + t * b.hueSpeed);
         const r = b.r * (1 + Math.sin(t * .5 + b.px) * .12);
         const g = ctx.createRadialGradient(x, y, 0, x, y, r);
@@ -195,10 +195,10 @@
       // faíscas do mouse: sobem, apagam e somem
       for (let i = this.sparks.length - 1; i >= 0; i--) {
         const s = this.sparks[i];
-        s.x += s.vx; s.y += s.vy; s.vy -= .01; s.life -= .022;
+        s.x += s.vx; s.y += s.vy; s.vy -= .01; s.life -= .016;
         if (s.life <= 0) { this.sparks.splice(i, 1); continue; }
         const g2 = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 3);
-        g2.addColorStop(0, `hsla(${s.hue}, 90%, 65%, ${s.life * .7})`);
+        g2.addColorStop(0, `hsla(${s.hue}, 90%, 65%, ${s.life * .85})`);
         g2.addColorStop(1, `hsla(${s.hue}, 90%, 65%, 0)`);
         ctx.fillStyle = g2;
         ctx.beginPath(); ctx.arc(s.x, s.y, s.r * 3, 0, Math.PI * 2); ctx.fill();
@@ -206,9 +206,9 @@
 
       // light leak diagonal a cada ~16s (só no hero)
       if (!reduceMotion && opts.base) {
-        const cycle = (t % 16) / 16;
-        if (cycle < .38) {
-          const p = cycle / .38;
+        const cycle = (t % 11) / 11;
+        if (cycle < .45) {
+          const p = cycle / .45;
           const x = -W * .6 + p * W * 2.2;
           const leak = ctx.createLinearGradient(x, 0, x + W * .5, H);
           const a = Math.sin(p * Math.PI) * .075;
@@ -227,9 +227,9 @@
   }
 
   const heroCanvas = document.querySelector(".hero-canvas");
-  if (heroCanvas) new AuroraField(heroCanvas, { bokeh: true, base: true, intensity: 1, blobCount: 6, sparks: true });
+  if (heroCanvas) new AuroraField(heroCanvas, { bokeh: true, base: true, intensity: 1.25, blobCount: 8, sparks: true });
   const invCanvas = document.querySelector(".inv-canvas");
-  if (invCanvas) new AuroraField(invCanvas, { bokeh: false, base: false, intensity: .55, blobCount: 4 });
+  if (invCanvas) new AuroraField(invCanvas, { bokeh: false, base: false, intensity: .7, blobCount: 6 });
 
   /* ============================================================
      2. SPLIT-TEXT — palavras dos títulos sobem uma a uma
