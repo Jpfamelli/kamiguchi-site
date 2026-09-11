@@ -47,7 +47,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Serif:ital@1&family=Hanken+Grotesk:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=5">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230B2E33'/><text x='50' y='68' font-size='56' font-family='Georgia' font-style='italic' fill='%23C08A3E' text-anchor='middle'>K</text></svg>">
 </head>
 <body>
@@ -56,6 +56,17 @@
 
   <!-- Progresso de leitura (hairline âmbar no topo) -->
   <div class="scroll-progress" aria-hidden="true"><i></i></div>
+
+  <!-- Preloader de marca: escondido por padrão, o JS liga (.on) só quando pode animar.
+       Sem JS ou com reduced-motion ele NUNCA aparece (lição Nexus). -->
+  <div class="pre" id="pre" aria-hidden="true">
+    <div class="pre-panels"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="pre-core">
+      <span class="pre-k">K</span>
+      <span class="pre-name">Kamiguchi <b>odontologia</b></span>
+      <span class="pre-count" id="pre-count">00</span>
+    </div>
+  </div>
 
   <!-- Cursor customizado (apenas pointer:fine) -->
   <div class="cursor" aria-hidden="true">
@@ -134,10 +145,10 @@
 
   <!-- ===================== FAIXA DE FATOS ===================== -->
   <section class="facts" aria-label="Diferenciais">
-    <div class="fact reveal"><strong>5,0</strong><span>avaliação máxima no Google — pacientes que recomendam</span></div>
-    <div class="fact reveal"><strong>8</strong><span>especialidades numa equipe multidisciplinar</span></div>
+    <div class="fact reveal"><strong data-count="5,0">5,0</strong><span>avaliação máxima no Google — pacientes que recomendam</span></div>
+    <div class="fact reveal"><strong data-count="8">8</strong><span>especialidades numa equipe multidisciplinar</span></div>
     <div class="fact reveal"><strong>Square</strong><span>Offices &amp; Mall — localização privilegiada e fácil acesso</span></div>
-    <div class="fact reveal"><strong>20h</strong><span>horário estendido, para caber na sua rotina</span></div>
+    <div class="fact reveal"><strong data-count="20h">20h</strong><span>horário estendido, para caber na sua rotina</span></div>
   </section>
 
   <!-- ===================== 01 · A CLÍNICA ===================== -->
@@ -488,6 +499,13 @@
     </ul>
   </section>
 
+  <!-- ===================== ESTEIRA GIGANTE (outline, skew por velocidade) ===================== -->
+  <a class="belt" id="esteira" href="#agenda" aria-label="Agendar a sua avaliação">
+    <div class="belt-track" aria-hidden="true">
+      <span>Agende a sua avaliação → nota 5,0 no Google → atendimento até as 20h → </span><span>Agende a sua avaliação → nota 5,0 no Google → atendimento até as 20h → </span>
+    </div>
+  </a>
+
   <!-- ===================== 06 · AGENDA (wizard em 3 passos) ===================== -->
   <section class="chapter chapter-agenda" id="agenda">
     <div class="glow glow-b" aria-hidden="true"></div>
@@ -599,7 +617,7 @@
   </section>
 
   <!-- ===================== RODAPÉ ===================== -->
-  <footer class="footer">
+  <footer class="footer" id="rodape">
     <p class="footer-mark">Kamiguchi<span>odontologia</span></p>
     <div class="footer-cols">
       <div>
@@ -622,8 +640,23 @@
         <p><a href="#clinica">A clínica</a> · <a href="#invisivel">Invisível</a> · <a href="#especialidades">Especialidades</a><br><a href="#pacientes">Pacientes</a> · <a href="#duvidas">Dúvidas</a> · <a href="#agenda">Agendar</a></p>
       </div>
     </div>
+    <div class="footer-meta">
+      <span class="f-clock" aria-label="Hora local em Taubaté">Taubaté — SP · <b id="f-clock">--:--</b></span>
+      <span class="f-coord" aria-hidden="true">23°01′S · 45°33′O</span>
+      <button class="to-top magnetic" aria-label="Voltar ao topo">↑</button>
+    </div>
     <p class="footer-legal">© 2026 Kamiguchi Odontologia · Taubaté — SP</p>
+    <p class="footer-wm" aria-hidden="true">Kamiguchi</p>
   </footer>
+
+  <!-- Tab bar de app (mobile) -->
+  <nav class="appbar" aria-label="Atalhos">
+    <a href="#topo">Início</a>
+    <a href="#invisivel">Invisível</a>
+    <a class="ab-cta" href="#agenda" aria-label="Agendar consulta"><span aria-hidden="true">✚</span></a>
+    <a href="#pacientes">Pacientes</a>
+    <a href="#duvidas">Dúvidas</a>
+  </nav>
 
   <!-- WhatsApp flutuante -->
   <a class="wa-float" href="https://wa.me/5512997552370?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Kamiguchi%20Odontologia%20e%20gostaria%20de%20agendar%20uma%20consulta."
@@ -633,6 +666,6 @@
     </svg>
   </a>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>

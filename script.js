@@ -27,6 +27,32 @@
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches || noAnim;
   const finePointer = matchMedia("(pointer: fine)").matches;
 
+  /* ============================================================
+     0. PRELOADER DE MARCA — Date.now + setInterval (NUNCA rAF),
+        rede de segurança por timeout, 1x por sessão, some sem JS.
+     ============================================================ */
+  (() => {
+    const pre = document.getElementById("pre");
+    if (!pre) return;
+    let seen = false;
+    try { seen = !!sessionStorage.getItem("km-seen"); } catch (e) {}
+    if (reduceMotion || seen) { pre.remove(); return; }
+    try { sessionStorage.setItem("km-seen", "1"); } catch (e) {}
+    pre.classList.add("on");
+    const count = document.getElementById("pre-count");
+    const t0 = Date.now(), DUR = 1050;
+    const iv = setInterval(() => {
+      const p = Math.min(1, (Date.now() - t0) / DUR);
+      count.textContent = String(Math.round(p * 100)).padStart(2, "0");
+      if (p >= 1) {
+        clearInterval(iv);
+        pre.classList.add("done");
+        setTimeout(() => pre.remove(), 950);
+      }
+    }, 40);
+    setTimeout(() => { clearInterval(iv); if (pre.parentNode) pre.remove(); }, 2600);
+  })();
+
   /* posição do mouse compartilhada (normalizada) */
   const mouse = { x: .5, y: .5 };
   if (finePointer && !reduceMotion) {
@@ -597,6 +623,176 @@
   }
 
   /* ============================================================
+     7b. FAÍSCAS DE CLIQUE GLOBAIS — vida por TEMPO (nunca por frame)
+     ============================================================ */
+  if (!reduceMotion) {
+    const fx = document.createElement("canvas");
+    fx.style.cssText = "position:fixed;inset:0;width:100%;height:100%;z-index:800;pointer-events:none";
+    fx.setAttribute("aria-hidden", "true");
+    document.body.appendChild(fx);
+    const fctx = fx.getContext("2d");
+    let parts = [], ring = null, running = false;
+    const fxSize = () => {
+      if (fx.width !== innerWidth || fx.height !== innerHeight) { fx.width = innerWidth; fx.height = innerHeight; }
+    };
+    const fxLoop = () => {
+      fxSize();
+      fctx.clearRect(0, 0, fx.width, fx.height);
+      const now = Date.now();
+      parts = parts.filter((p) => now - p.t0 < p.dur);
+      for (const p of parts) {
+        const k = (now - p.t0) / p.dur;
+        const x = p.x + p.vx * k * 60, y = p.y + p.vy * k * 60 + 30 * k * k;
+        fctx.globalAlpha = 1 - k;
+        fctx.fillStyle = `hsl(${p.hue}, 85%, 62%)`;
+        fctx.beginPath(); fctx.arc(x, y, p.r * (1 - k * .6), 0, Math.PI * 2); fctx.fill();
+      }
+      fctx.globalAlpha = 1;
+      if (ring) {
+        const k = (now - ring.t0) / ring.dur;
+        if (k >= 1) ring = null;
+        else {
+          fctx.strokeStyle = `hsla(38, 80%, 60%, ${1 - k})`;
+          fctx.lineWidth = 1.5;
+          fctx.beginPath(); fctx.arc(ring.x, ring.y, 8 + k * 70, 0, Math.PI * 2); fctx.stroke();
+        }
+      }
+      if (parts.length || ring) requestAnimationFrame(fxLoop);
+      else { running = false; fctx.clearRect(0, 0, fx.width, fx.height); }
+    };
+    addEventListener("pointerdown", (e) => {
+      const t0 = Date.now();
+      for (let i = 0; i < 12; i++) {
+        const a = (i / 12) * Math.PI * 2 + rand(-.2, .2);
+        parts.push({
+          x: e.clientX, y: e.clientY,
+          vx: Math.cos(a) * rand(.6, 1.6), vy: Math.sin(a) * rand(.6, 1.6),
+          r: rand(1.5, 3.2), hue: rand(32, 52), t0, dur: rand(500, 850),
+        });
+      }
+      ring = { x: e.clientX, y: e.clientY, t0, dur: 620 };
+      if (!running) { running = true; requestAnimationFrame(fxLoop); }
+    }, { passive: true });
+  }
+
+  /* ============================================================
+     7c. SCRAMBLE — números de capítulo decodificam ao entrar na tela
+     ============================================================ */
+  if (!reduceMotion) {
+    const CH = "KAMIGUCH·01358";
+    const scramble = (el) => {
+      const txt = el.dataset.txt || (el.dataset.txt = el.textContent);
+      const t0 = Date.now(), DUR = 700;
+      const iv = setInterval(() => {
+        const p = Math.min(1, (Date.now() - t0) / DUR);
+        const fix = Math.floor(p * txt.length);
+        el.textContent = txt.slice(0, fix) +
+          [...txt.slice(fix)].map((c) => (c === " " ? " " : CH[Math.floor(Math.random() * CH.length)])).join("");
+        if (p >= 1) { clearInterval(iv); el.textContent = txt; }
+      }, 34);
+    };
+    const sIO = new IntersectionObserver((ens) => {
+      ens.forEach((en) => { if (en.isIntersecting) { scramble(en.target); sIO.unobserve(en.target); } });
+    }, { threshold: .6 });
+    document.querySelectorAll(".chapter-num, .insta-eyebrow").forEach((el) => sIO.observe(el));
+  }
+
+  /* ============================================================
+     7d. CONTADORES — só números reais (5,0 · 8 · 20h)
+     ============================================================ */
+  if (!reduceMotion) {
+    const cIO = new IntersectionObserver((ens) => {
+      ens.forEach((en) => {
+        if (!en.isIntersecting) return;
+        cIO.unobserve(en.target);
+        const el = en.target, spec = el.dataset.count;
+        const dec = spec.includes(","), suf = spec.endsWith("h") ? "h" : "";
+        const target = parseFloat(spec.replace(",", ".").replace("h", ""));
+        const t0 = performance.now(), DUR = 1300;
+        (function tick(now) {
+          const p = Math.min(1, (now - t0) / DUR), e2 = 1 - Math.pow(1 - p, 3);
+          const v = target * e2;
+          el.textContent = (dec ? v.toFixed(1).replace(".", ",") : String(Math.round(v))) + suf;
+          if (p < 1) requestAnimationFrame(tick); else el.textContent = spec;
+        })(t0);
+      });
+    }, { threshold: .7 });
+    document.querySelectorAll("[data-count]").forEach((el) => cIO.observe(el));
+  }
+
+  /* ============================================================
+     7e. TRILHO DE CAPÍTULOS (≥1280) + aba ativa da appbar
+     ============================================================ */
+  const CHAPTERS = [
+    ["clinica", "A clínica"], ["invisivel", "Invisível"], ["especialidades", "Especialidades"],
+    ["pacientes", "Pacientes"], ["duvidas", "Dúvidas"], ["agenda", "Agendar"],
+  ];
+  const DARK_SECS = new Set(["invisivel", "pacientes"]);
+  const rail = document.createElement("nav");
+  rail.className = "rail"; rail.setAttribute("aria-label", "Capítulos");
+  CHAPTERS.forEach(([id, nome], i) => {
+    const a = document.createElement("a");
+    a.href = "#" + id; a.dataset.sec = id;
+    const b = document.createElement("b"); b.textContent = nome;
+    const s = document.createElement("span"); s.textContent = "0" + (i + 1);
+    a.append(b, s); rail.appendChild(a);
+  });
+  document.body.appendChild(rail);
+  const railLinks = [...rail.querySelectorAll("a")];
+  const abLinks = [...document.querySelectorAll(".appbar a[href^='#']")];
+  const zIO = new IntersectionObserver((ens) => {
+    ens.forEach((en) => {
+      if (!en.isIntersecting) return;
+      const id = en.target.id;
+      railLinks.forEach((a) => a.classList.toggle("on", a.dataset.sec === id));
+      rail.classList.toggle("on-dark", DARK_SECS.has(id));
+      abLinks.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + id));
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  CHAPTERS.forEach(([id]) => { const s = document.getElementById(id); if (s) zIO.observe(s); });
+
+  /* ============================================================
+     7f. LETRA ROLANTE nos botões e na nav
+     ============================================================ */
+  document.querySelectorAll(".btn, .nav a").forEach((el) => {
+    if (el.children.length) return;
+    const t = el.textContent.trim();
+    if (!t) return;
+    el.textContent = "";
+    const roll = document.createElement("span");
+    roll.className = "roll";
+    const i1 = document.createElement("i"); i1.textContent = t;
+    const i2 = document.createElement("i"); i2.textContent = t; i2.setAttribute("aria-hidden", "true");
+    roll.append(i1, i2);
+    el.appendChild(roll);
+  });
+
+  /* ============================================================
+     7g. RODAPÉ VIVO — relógio de Taubaté + voltar ao topo
+     ============================================================ */
+  const fclock = document.getElementById("f-clock");
+  if (fclock) {
+    const tickClock = () => {
+      try {
+        fclock.textContent = new Date().toLocaleTimeString("pt-BR",
+          { hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" });
+      } catch (e) { fclock.textContent = new Date().toTimeString().slice(0, 5); }
+    };
+    tickClock(); setInterval(tickClock, 30000);
+  }
+  const toTop = document.querySelector(".to-top");
+  if (toTop) toTop.addEventListener("click", () =>
+    scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }));
+
+  /* ============================================================
+     7h. ESTEIRA — pausa fora da tela
+     ============================================================ */
+  const belt = document.querySelector(".belt");
+  const beltTrack = document.querySelector(".belt-track");
+  if (belt) new IntersectionObserver((en) =>
+    belt.classList.toggle("paused", !en[0].isIntersecting)).observe(belt);
+
+  /* ============================================================
      8. HEADER + MENU MOBILE
      ============================================================ */
   // trilho único de scroll (rAF): progresso, header, parallax do hero, scrub do ghost
@@ -610,6 +806,7 @@
   function scrollRail() {
     ticking = false;
     const y = scrollY;
+    const dy = y - lastY;
     const max = document.documentElement.scrollHeight - innerHeight;
     if (progBar) progBar.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
     header.classList.toggle("scrolled", y > 40);
@@ -620,6 +817,13 @@
     }
     lastY = y;
     if (!reduceMotion) {
+      // esteira entorta com a velocidade do scroll e volta ao repouso
+      if (beltTrack) {
+        const sk = Math.max(-5, Math.min(5, dy * .25));
+        beltTrack.style.setProperty("--skew", sk.toFixed(2) + "deg");
+        clearTimeout(scrollRail._skT);
+        scrollRail._skT = setTimeout(() => beltTrack.style.setProperty("--skew", "0deg"), 140);
+      }
       if (heroInner && y < innerHeight * 1.2) {
         const p = Math.min(1, y / innerHeight);
         heroInner.style.transform = `translateY(${p * 70}px)`;
