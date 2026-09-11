@@ -62,6 +62,16 @@ fieldset { border: 0; }
 .skip-link:focus { left: 0; }
 :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
 
+/* ---------- progresso de leitura ---------- */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 120;
+  pointer-events: none;
+}
+.scroll-progress i {
+  display: block; height: 100%; background: var(--amber);
+  transform-origin: left; transform: scaleX(0);
+}
+
 /* ---------- split-text (títulos palavra a palavra) ---------- */
 [data-split] .w  { display: inline-block; overflow: hidden; vertical-align: bottom; }
 [data-split] .wi { display: inline-block; transform: translateY(112%); transition: transform .9s var(--ease); transition-delay: var(--d, 0s); }
@@ -115,10 +125,12 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   gap: 1rem; padding: 1.1rem var(--pad);
-  transition: background .4s var(--ease), border-color .4s var(--ease), padding .4s var(--ease);
+  transition: background .4s var(--ease), border-color .4s var(--ease),
+              padding .4s var(--ease), transform .45s var(--ease);
   border-bottom: 1px solid transparent;
   color: var(--paper-text-on-dark);
 }
+.header.tucked { transform: translateY(-100%); }   /* escondido ao rolar p/ baixo */
 .header.scrolled {
   background: color-mix(in srgb, var(--paper) 92%, transparent);
   backdrop-filter: blur(10px);
@@ -184,7 +196,7 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
   100% { transform: translate(3%,3%); }
 }
 
-.hero-inner { position: relative; z-index: 2; padding: 8rem var(--pad) 4rem; max-width: 1240px; }
+.hero-inner { position: relative; z-index: 2; padding: 8rem var(--pad) 4rem; max-width: 1240px; will-change: transform, opacity; }
 .eyebrow {
   font-family: var(--font-mono); font-size: .74rem; letter-spacing: .22em;
   text-transform: uppercase; color: var(--mint); margin-bottom: 2.2rem;
@@ -216,6 +228,12 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
 }
 .scroll-hint { animation: hint 2.6s var(--ease) infinite; }
 @keyframes hint { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
+
+/* ---------- brilho que segue o cursor nas seções escuras ---------- */
+.chapter-dark, .insta {
+  background-image: radial-gradient(560px circle at var(--mx, 50%) var(--my, 40%),
+    rgba(217, 160, 80, .08), transparent 70%);
+}
 
 /* ---------- glows: "dança de cor" nas seções ---------- */
 .chapter { position: relative; }
@@ -288,7 +306,7 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
 .valores li span { font-weight: 600; color: var(--ink); }
 
 /* ---------- 02 · aparelho invisível ---------- */
-.chapter-dark { background: var(--ink); color: var(--paper-text-on-dark); }
+.chapter-dark { background-color: var(--ink); color: var(--paper-text-on-dark); }
 .chapter-dark .chapter-title { color: var(--paper-text-on-dark); }
 .chapter-dark .chapter-title em { color: var(--amber-hi); }
 .chapter-dark .chapter-lead { color: color-mix(in srgb, var(--paper-text-on-dark) 75%, transparent); }
@@ -302,6 +320,7 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
   font-size: clamp(5rem, 17vw, 15rem); line-height: 1; letter-spacing: -.03em;
   color: transparent; -webkit-text-stroke: 1px rgba(217,160,80,.5);
   opacity: .3;                               /* base p/ noanim/reduced-motion */
+  will-change: transform;                    /* scrub horizontal via JS no scroll */
   animation: ghost 7s ease-in-out infinite;
   pointer-events: none; user-select: none;
 }
@@ -360,6 +379,19 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
 /* ---------- 04 · pacientes (carrossel) ---------- */
 .rating-line { margin-top: 1.4rem; font-family: var(--font-mono); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--mint); }
 .rating-line .stars { color: var(--amber-hi); letter-spacing: .3em; margin-right: .6rem; }
+/* estrelas estouram uma a uma quando a seção entra na tela */
+.rating-line .stars i { display: inline-block; font-style: normal; }
+.rating-line.reveal.in .stars i { animation: starpop .55s var(--ease) backwards; }
+.rating-line.reveal.in .stars i:nth-child(1) { animation-delay: .15s; }
+.rating-line.reveal.in .stars i:nth-child(2) { animation-delay: .3s; }
+.rating-line.reveal.in .stars i:nth-child(3) { animation-delay: .45s; }
+.rating-line.reveal.in .stars i:nth-child(4) { animation-delay: .6s; }
+.rating-line.reveal.in .stars i:nth-child(5) { animation-delay: .75s; }
+@keyframes starpop {
+  0% { transform: scale(0) rotate(-40deg); opacity: 0; }
+  60% { transform: scale(1.35) rotate(8deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0); }
+}
 
 .car { max-width: 900px; margin-bottom: 3rem; }
 .car-viewport {
@@ -470,7 +502,7 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
 
 /* ---------- instagram ---------- */
 .insta {
-  background: var(--ink); color: var(--paper-text-on-dark);
+  background-color: var(--ink); color: var(--paper-text-on-dark);
   padding: clamp(4rem, 9vw, 7rem) var(--pad);
   display: flex; flex-direction: column; align-items: center; gap: 1.4rem; text-align: center;
   border-bottom: 1px solid var(--line-light);
@@ -524,6 +556,36 @@ body.has-cursor.cursor-label-on .cursor-label { opacity: 1; }
 /* ---------- reveals ---------- */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .reveal.in { opacity: 1; transform: none; }
+
+/* ---------- tilt 3D (aplicado por JS em [data-tilt], só pointer:fine) ---------- */
+[data-tilt] { transform-style: preserve-3d; will-change: transform; }
+
+/* ---------- varredura de cor no hover das especialidades ---------- */
+.svc-head { position: relative; }
+.svc-head::before {
+  content: ""; position: absolute; inset: 0 calc(-1 * var(--pad));
+  background: linear-gradient(90deg, rgba(20, 92, 102, .07), rgba(20, 92, 102, 0) 70%);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .5s var(--ease); pointer-events: none;
+}
+.svc-head:hover::before { transform: scaleX(1); }
+
+/* ---------- letras que dançam no hover (rodapé e Instagram) ---------- */
+.wave span { display: inline-block; transition: transform .35s var(--ease); transition-delay: calc(var(--i) * 22ms); }
+.wave:hover span { transform: translateY(-.12em); }
+
+/* ---------- wizard: transição entre passos + pop nos chips ---------- */
+.wiz-step { animation: stepIn .45s var(--ease); }
+@keyframes stepIn {
+  from { opacity: 0; transform: translateX(18px); }
+  to   { opacity: 1; transform: none; }
+}
+.chip.is-on { animation: chipPop .3s var(--ease); }
+@keyframes chipPop {
+  0% { transform: scale(.92); }
+  60% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
 
 /* ---------- responsivo ---------- */
 @media (max-width: 1000px) {

@@ -63,7 +63,8 @@
     constructor(canvas, opts = {}) {
       this.canvas = canvas;
       this.ctx = canvas.getContext("2d");
-      this.opts = Object.assign({ bokeh: false, base: false, intensity: 1, blobCount: 6 }, opts);
+      this.opts = Object.assign({ bokeh: false, base: false, intensity: 1, blobCount: 6, sparks: false }, opts);
+      this.sparks = [];
       this.W = 0; this.H = 0;
       this.mx = .5; this.my = .5;   // mouse suavizado
       this.t = rand(0, 100);
@@ -78,6 +79,20 @@
       this.loop = this.loop.bind(this);
       this.loop();
       document.addEventListener("visibilitychange", () => { this.checkSize(); this.draw(); });
+      // rastro de faíscas quentes seguindo o mouse (só desktop, só com animação)
+      if (this.opts.sparks && finePointer && !reduceMotion) {
+        canvas.parentElement.addEventListener("pointermove", (e) => {
+          const r = canvas.getBoundingClientRect();
+          for (let k = 0; k < 2; k++) {
+            if (this.sparks.length > 110) this.sparks.shift();
+            this.sparks.push({
+              x: e.clientX - r.left + rand(-6, 6), y: e.clientY - r.top + rand(-6, 6),
+              vx: rand(-.5, .5), vy: rand(-1.4, -.3),
+              r: rand(1.2, 3.4), life: 1, hue: rand(32, 54),
+            });
+          }
+        });
+      }
     }
     resize() {
       const dpr = Math.min(devicePixelRatio || 1, 2);
@@ -177,6 +192,18 @@
         ctx.beginPath(); ctx.arc(px, py, r, 0, Math.PI * 2); ctx.fill();
       }
 
+      // faíscas do mouse: sobem, apagam e somem
+      for (let i = this.sparks.length - 1; i >= 0; i--) {
+        const s = this.sparks[i];
+        s.x += s.vx; s.y += s.vy; s.vy -= .01; s.life -= .022;
+        if (s.life <= 0) { this.sparks.splice(i, 1); continue; }
+        const g2 = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 3);
+        g2.addColorStop(0, `hsla(${s.hue}, 90%, 65%, ${s.life * .7})`);
+        g2.addColorStop(1, `hsla(${s.hue}, 90%, 65%, 0)`);
+        ctx.fillStyle = g2;
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r * 3, 0, Math.PI * 2); ctx.fill();
+      }
+
       // light leak diagonal a cada ~16s (só no hero)
       if (!reduceMotion && opts.base) {
         const cycle = (t % 16) / 16;
@@ -200,7 +227,7 @@
   }
 
   const heroCanvas = document.querySelector(".hero-canvas");
-  if (heroCanvas) new AuroraField(heroCanvas, { bokeh: true, base: true, intensity: 1, blobCount: 6 });
+  if (heroCanvas) new AuroraField(heroCanvas, { bokeh: true, base: true, intensity: 1, blobCount: 6, sparks: true });
   const invCanvas = document.querySelector(".inv-canvas");
   if (invCanvas) new AuroraField(invCanvas, { bokeh: false, base: false, intensity: .55, blobCount: 4 });
 
@@ -210,6 +237,7 @@
   const splitEls = document.querySelectorAll("[data-split]");
   if (!reduceMotion) {
     splitEls.forEach((el) => {
+      const letters = el.dataset.split === "letters";   // hero: letra a letra
       (function walk(node) {
         [...node.childNodes].forEach((child) => {
           if (child.nodeType === 3 && child.textContent.trim()) {
@@ -218,14 +246,23 @@
               if (!part) return;
               if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
               const w = document.createElement("span"); w.className = "w";
-              const wi = document.createElement("span"); wi.className = "wi"; wi.textContent = part;
-              w.appendChild(wi); frag.appendChild(w);
+              if (letters) {
+                [...part].forEach((ch) => {
+                  const wi = document.createElement("span"); wi.className = "wi"; wi.textContent = ch;
+                  w.appendChild(wi);
+                });
+              } else {
+                const wi = document.createElement("span"); wi.className = "wi"; wi.textContent = part;
+                w.appendChild(wi);
+              }
+              frag.appendChild(w);
             });
             node.replaceChild(frag, child);
           } else if (child.nodeType === 1 && child.tagName !== "BR") walk(child);
         });
       })(el);
-      el.querySelectorAll(".wi").forEach((wi, i) => wi.style.setProperty("--d", (i * .06) + "s"));
+      const stepD = letters ? .028 : .06;
+      el.querySelectorAll(".wi").forEach((wi, i) => wi.style.setProperty("--d", (i * stepD) + "s"));
     });
     // hero anima na carga; os demais quando entram na tela
     const heroTitle = document.querySelector(".hero-title[data-split]");
@@ -273,6 +310,53 @@
     document.addEventListener("pointerout", (e) => {
       if (e.target.closest(interactive)) document.body.classList.remove("cursor-on");
       if (e.target.closest("[data-cursor-label]")) document.body.classList.remove("cursor-label-on");
+    });
+
+    // brilho quente que segue o cursor nas seções escuras
+    document.querySelectorAll(".chapter-dark, .insta").forEach((sec) => {
+      sec.addEventListener("pointermove", (e) => {
+        const r = sec.getBoundingClientRect();
+        sec.style.setProperty("--mx", (e.clientX - r.left) + "px");
+        sec.style.setProperty("--my", (e.clientY - r.top) + "px");
+      });
+    });
+
+    // tilt 3D nos elementos marcados
+    document.querySelectorAll("[data-tilt]").forEach((el) => {
+      el.addEventListener("pointermove", (e) => {
+        const r = el.getBoundingClientRect();
+        const rx = ((e.clientY - r.top) / r.height - .5) * -8;
+        const ry = ((e.clientX - r.left) / r.width - .5) * 10;
+        el.style.transition = "none";
+        el.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      });
+      el.addEventListener("pointerleave", () => {
+        el.style.transition = "transform .6s cubic-bezier(.22,.8,.24,1)";
+        el.style.transform = "";
+        setTimeout(() => (el.style.transition = ""), 600);
+      });
+    });
+
+    // letras que dançam no hover (rodapé e link do Instagram)
+    document.querySelectorAll(".footer-mark, .insta-link").forEach((el) => {
+      el.classList.add("wave");
+      let i = 0;
+      (function split(node) {
+        [...node.childNodes].forEach((child) => {
+          if (child.nodeType === 3 && child.textContent.trim()) {
+            const frag = document.createDocumentFragment();
+            [...child.textContent].forEach((ch) => {
+              if (ch.trim()) {
+                const s = document.createElement("span");
+                s.textContent = ch; s.style.setProperty("--i", i++);
+                frag.appendChild(s);
+              } else frag.appendChild(document.createTextNode(ch));
+            });
+            node.replaceChild(frag, child);
+          } else if (child.nodeType === 1 && child.tagName === "EM") split(child);
+          // (o <span> do rodapé — "odontologia" em mono — fica de fora de propósito)
+        });
+      })(el);
     });
 
     document.querySelectorAll(".magnetic").forEach((el) => {
@@ -515,10 +599,43 @@
   /* ============================================================
      8. HEADER + MENU MOBILE
      ============================================================ */
+  // trilho único de scroll (rAF): progresso, header, parallax do hero, scrub do ghost
   const header = document.querySelector(".header");
-  const onScroll = () => header.classList.toggle("scrolled", scrollY > 40);
-  addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+  const progBar = document.querySelector(".scroll-progress i");
+  const heroInner = document.querySelector(".hero-inner");
+  const ghost = document.querySelector(".inv-ghost");
+  const invSec = document.getElementById("invisivel");
+  let lastY = scrollY, ticking = false;
+
+  function scrollRail() {
+    ticking = false;
+    const y = scrollY;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    if (progBar) progBar.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+    header.classList.toggle("scrolled", y > 40);
+    // header se recolhe descendo, volta subindo (nunca com o menu aberto)
+    if (!header.classList.contains("menu-open")) {
+      if (y > 380 && y > lastY + 4) header.classList.add("tucked");
+      else if (y < lastY - 4 || y <= 380) header.classList.remove("tucked");
+    }
+    lastY = y;
+    if (!reduceMotion) {
+      if (heroInner && y < innerHeight * 1.2) {
+        const p = Math.min(1, y / innerHeight);
+        heroInner.style.transform = `translateY(${p * 70}px)`;
+        heroInner.style.opacity = String(1 - p * .9);
+      }
+      if (ghost && invSec) {
+        const r = invSec.getBoundingClientRect();
+        const p = Math.min(1, Math.max(0, (innerHeight - r.top) / (r.height + innerHeight)));
+        ghost.style.transform = `translateX(${(0.5 - p) * 18}%)`;
+      }
+    }
+  }
+  addEventListener("scroll", () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(scrollRail); }
+  }, { passive: true });
+  scrollRail();
 
   const menuBtn = document.querySelector(".menu-btn");
   const overlay = document.querySelector(".menu-overlay");
